@@ -1,0 +1,22 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/colorNavigation</item>
+        <item name="android:windowBackground">@color/colorWindow</item>
+        <item name="android:textColorPrimary">@color/colorText</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="fundo_verde">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/vermelho</item>
+        <item name="android:background">@color/verde</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+</resources>

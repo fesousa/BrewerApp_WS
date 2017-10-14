@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/mensagemInicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mensagem_login"
+        />
+
+    <TextView
+        android:id="@+id/textoUsuario"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:text="Usuario"
+        android:layout_below="@id/mensagemInicio"
+        android:layout_marginTop="20dp"
+        />
+
+    <EditText
+        android:id="@+id/campoUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/textoUsuario"
+        android:layout_alignTop="@id/textoUsuario"
+        />
+
+    <TextView
+        android:id="@+id/textoSenha"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:text="Senha"
+        android:layout_below="@id/campoUsuario"
+        android:layout_marginTop="20dp"
+        />
+
+    <EditText
+        android:id="@+id/campoSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:layout_toRightOf="@id/textoSenha"
+        android:layout_alignTop="@id/textoSenha"
+        />
+
+    <Button
+        android:id="@+id/botaoLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:layout_below="@id/campoSenha"
+        android:layout_alignParentRight="true"
+        />
+
+    <ImageView
+        android:id="@+id/imagemLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/botaoLogin"
+        android:src="@drawable/login_img"
+        android:layout_alignParentBottom="true"
+        />
+
+
+</RelativeLayout>

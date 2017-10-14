@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1"
+    android:shrinkColumns="2">
+
+    <TextView
+        android:id="@+id/mensagemInicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mensagem_login" />
+
+    <TableRow>
+        <TextView
+            android:id="@+id/textoUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Usuario" />
+
+        <EditText
+            android:id="@+id/campoUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:id="@+id/textoSenha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Senha" />
+
+        <EditText
+            android:id="@+id/campoSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/textoAjudaSenha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coloque aqui sua senha cadastrada no sistema" />
+
+    </TableRow>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/botaoLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Login" />
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imagemLogin"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/login_img"
+        android:layout_weight="2"
+        />
+
+</TableLayout>
