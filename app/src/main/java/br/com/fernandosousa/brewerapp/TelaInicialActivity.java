@@ -2,6 +2,7 @@ package br.com.fernandosousa.brewerapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -17,13 +18,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TelaInicialActivity extends DebugActivity {
 
     private List<Cerveja> cervejas;
-    private List<Cerveja> results;
     private ListView lista ;
     public static final int  RETORNO_CERVEJA_ACTIVITY = 2;
 
@@ -59,22 +60,34 @@ public class TelaInicialActivity extends DebugActivity {
         // Procurar cervejas e armazenar na
         // variavel de classe cervejas
         cervejas = cervejaDB.findAll();
-        results = cervejas.subList(0, cervejas.size());
+
+        // chamar um WS com a lista de Cervejas - não funciona se estiver na Thread Principal
+//        String url = "http://fernandosousa.com.br/mobile/app/cerveja/listar";
+//        HttpHelper http = new HttpHelper();
+//        String json = "";
+//        try {
+//            json = http.doGet(url);
+//        }
+//        catch(IOException ex) { }
+//        Toast.makeText(TelaInicialActivity.this, json, Toast.LENGTH_LONG);
+
+        // chamar um WS com a lista de Cervejas utilizando AsyncTask
+        new GetCervejasTask(TelaInicialActivity.this).execute();
 
         // Adapater de cervejas
-        lista.setAdapter(new CervejasAdapter(TelaInicialActivity.this,results ));
+        lista.setAdapter(new CervejasAdapter(TelaInicialActivity.this,cervejas ));
 
         lista.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int index, long id) {
+                // recuperar lista de cervejas da listview
+                List<Cerveja> listaFiltrada = ((CervejasAdapter) adapterView.getAdapter()).getList();
                 Intent cervejaIntent = new Intent(TelaInicialActivity.this, CervejaActivity.class);
-                cervejaIntent.putExtra("cerveja", results.get(index));
+                cervejaIntent.putExtra("cerveja", listaFiltrada.get(index));
                 // constante RETORNO_CERVEJA_ACTIVITY == 2
                 startActivityForResult(cervejaIntent, RETORNO_CERVEJA_ACTIVITY);
             }
         });
-
-
     }
 
     // Tratamento do evento de clique no botao de sair
@@ -137,8 +150,7 @@ public class TelaInicialActivity extends DebugActivity {
         if (requestCode == 1 || requestCode == RETORNO_CERVEJA_ACTIVITY) {
             CervejaDB cervejaDB = new CervejaDB(TelaInicialActivity.this);
             cervejas = cervejaDB.findAll();
-            results = cervejas.subList(0, cervejas.size());
-            lista.setAdapter(new CervejasAdapter(TelaInicialActivity.this,results ));
+            lista.setAdapter(new CervejasAdapter(TelaInicialActivity.this,cervejas ));
         }
         if (requestCode == RETORNO_CERVEJA_ACTIVITY && resultCode == Activity.RESULT_OK) {
             String mensagem = data.getStringExtra("msg");
@@ -149,6 +161,7 @@ public class TelaInicialActivity extends DebugActivity {
 
     // Funcao para retornar o tratamento do evento no SearchView
     private SearchView.OnQueryTextListener onSearch() {
+
         return new SearchView.OnQueryTextListener() {
             @Override
             // Tratamento do evento quando termina de escrever
@@ -170,12 +183,17 @@ public class TelaInicialActivity extends DebugActivity {
     }
 
     private void buscaCervejas(String query) {
-        results = new ArrayList<Cerveja>();
+
+        //cervejas = ((CervejasAdapter) lista.getAdapter()).getList();
+        query = query.toLowerCase();
+        List<Cerveja> results = new ArrayList<Cerveja>();
         for (Cerveja cerveja: cervejas) {
             if(cerveja.nome.toLowerCase().contains(query)){
+                Log.i("MYTASK", "match");
                 results.add(cerveja);
             }
         }
+
         lista.setAdapter(new CervejasAdapter(TelaInicialActivity.this,results));
     }
 

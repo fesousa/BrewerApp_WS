@@ -65,5 +65,9 @@ public class CervejasAdapter extends BaseAdapter {
         return viewText;
     }
 
+    public List<Cerveja> getList(){
+        return listaCervejas;
+    }
+
 
 }

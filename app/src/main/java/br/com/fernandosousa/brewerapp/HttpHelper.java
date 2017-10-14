@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -56,9 +57,9 @@ public class HttpHelper {
             } else {
                 in = conn.getInputStream();
             }
-
+            s = toString(in, charset);
             if (LOG_ON) {
-                Log.d(TAG, "<< Http.doGet: ");
+                Log.d(TAG, "<< Http.doGet: " + s);
             }
             in.close();
         } catch (IOException e) {
@@ -100,9 +101,9 @@ public class HttpHelper {
 
             conn.connect();
             InputStream in = conn.getInputStream();
-
+            s = toString(in, charset);
             if (LOG_ON) {
-                Log.d(TAG, "<< Http.doGet: ");
+                Log.d(TAG, "<< Http.doGet: " + s);
             }
             in.close();
         } catch (IOException e) {
@@ -159,9 +160,9 @@ public class HttpHelper {
             } else {
                 in = conn.getInputStream();
             }
-
+            s = toString(in, charset);
             if (LOG_ON) {
-                Log.d(TAG, "<< Http.doPost: ");
+                Log.d(TAG, "<< Http.doPost: " + s);
             }
             in.close();
         } catch (IOException e) {
@@ -174,6 +175,31 @@ public class HttpHelper {
         return s;
     }
 
+    public Bitmap doGetBitmap(String url) throws IOException {
+        if (LOG_ON) {
+            Log.d(TAG, ">> Http.doGet: " + url);
+        }
+        URL u = new URL(url);
+        HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setConnectTimeout(TIMEOUT_MILLIS);
+        conn.setReadTimeout(TIMEOUT_MILLIS);
+        conn.setDoOutput(true);
+        conn.setDoInput(true);
+        conn.connect();
+        InputStream in = conn.getInputStream();
+        byte[] bytes = toBytes(in);
+        if (LOG_ON) {
+            Log.d(TAG, "<< Http.doGet: " + bytes);
+        }
+        in.close();
+        conn.disconnect();
+        Bitmap bitmap = null;
+        if (bytes != null) {
+            bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        }
+        return bitmap;
+    }
 
     /**
      * Retorna a QueryString para 'GET'
@@ -205,4 +231,42 @@ public class HttpHelper {
     public void setCharsetToEncode(String encode) {
         this.charsetToEncode = encode;
     }
+
+
+    public static String toString(InputStream in, String charset) throws IOException {
+        byte[] bytes = toBytes(in);
+        String texto = new String(bytes, charset);
+        return texto;
+    }
+
+    /**
+     * Converte a InputStream para bytes[]
+     *
+     * @param in
+     * @return
+     */
+    public static byte[] toBytes(InputStream in) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = in.read(buffer)) > 0) {
+                bos.write(buffer, 0, len);
+            }
+            byte[] bytes = bos.toByteArray();
+            return bytes;
+        } catch (Exception e) {
+            Log.e("IOUtils", e.getMessage(), e);
+            return null;
+        } finally {
+            try {
+                bos.close();
+                in.close();
+            } catch (IOException e) {
+                Log.e("IOUtils", e.getMessage(), e);
+            }
+        }
+    }
+
+
 }
