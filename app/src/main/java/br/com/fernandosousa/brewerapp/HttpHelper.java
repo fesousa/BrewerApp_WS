@@ -103,7 +103,7 @@ public class HttpHelper {
             InputStream in = conn.getInputStream();
             s = toString(in, charset);
             if (LOG_ON) {
-                Log.d(TAG, "<< Http.doGet: " + s);
+                Log.d(TAG, "<< Http.doDelete: " + s);
             }
             in.close();
         } catch (IOException e) {

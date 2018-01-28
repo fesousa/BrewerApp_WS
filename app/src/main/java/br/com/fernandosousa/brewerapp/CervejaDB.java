@@ -19,7 +19,7 @@ public class CervejaDB extends SQLiteOpenHelper {
     // Nome do BD
     public static final String NOME_BANCO = "brewerapp.sqlite";
     // Versao do BD
-    public static final int VERSAO_BANCO = 2;
+    public static final int VERSAO_BANCO = 1;
 
     public CervejaDB(Context context){
          super(context, NOME_BANCO, null, VERSAO_BANCO);

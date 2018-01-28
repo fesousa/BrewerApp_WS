@@ -22,6 +22,8 @@ public class Cerveja implements Serializable{
     public int origem;
     public int brilho;
 
+    public int ra;
+
 
     public Cerveja() {
 

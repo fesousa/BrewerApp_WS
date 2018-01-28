@@ -24,7 +24,7 @@ import java.util.List;
 
 public class TelaInicialActivity extends DebugActivity {
 
-    private List<Cerveja> cervejas;
+    private List<Cerveja> cervejas = new ArrayList<Cerveja>();
     private ListView lista ;
     public static final int  RETORNO_CERVEJA_ACTIVITY = 2;
 
@@ -42,7 +42,7 @@ public class TelaInicialActivity extends DebugActivity {
             String nome = params.getString("nome");
             // Mostra o nome do usuário enviado no log e no Toast
             Log.d(DEBUG_TAG, "Nome do usuário: " + nome);
-            Toast.makeText(TelaInicialActivity.this, "Nome do usuário: " + nome, Toast.LENGTH_LONG).show();
+            //Toast.makeText(TelaInicialActivity.this, "Nome do usuário: " + nome, Toast.LENGTH_LONG).show();
 
         }
 
@@ -56,10 +56,10 @@ public class TelaInicialActivity extends DebugActivity {
         lista = (ListView)findViewById(R.id.listaElementos);
 
         // Criar objeto de CervejaDB
-        CervejaDB cervejaDB = new CervejaDB(TelaInicialActivity.this);
+        //CervejaDB cervejaDB = new CervejaDB(TelaInicialActivity.this);
         // Procurar cervejas e armazenar na
         // variavel de classe cervejas
-        cervejas = cervejaDB.findAll();
+        //cervejas = cervejaDB.findAll();
 
         // chamar um WS com a lista de Cervejas - não funciona se estiver na Thread Principal
 //        String url = "http://fernandosousa.com.br/mobile/app/cerveja/listar";
@@ -148,13 +148,16 @@ public class TelaInicialActivity extends DebugActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 1 || requestCode == RETORNO_CERVEJA_ACTIVITY) {
-            CervejaDB cervejaDB = new CervejaDB(TelaInicialActivity.this);
-            cervejas = cervejaDB.findAll();
-            lista.setAdapter(new CervejasAdapter(TelaInicialActivity.this,cervejas ));
+            // para trabalhar com BD
+//            CervejaDB cervejaDB = new CervejaDB(TelaInicialActivity.this);
+//            cervejas = cervejaDB.findAll();
+//            lista.setAdapter(new CervejasAdapter(TelaInicialActivity.this,cervejas ));
+            new GetCervejasTask(TelaInicialActivity.this).execute();
+            // para trabalhar com WS
         }
         if (requestCode == RETORNO_CERVEJA_ACTIVITY && resultCode == Activity.RESULT_OK) {
             String mensagem = data.getStringExtra("msg");
-            Toast.makeText(TelaInicialActivity.this, mensagem, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(TelaInicialActivity.this, mensagem, Toast.LENGTH_SHORT).show();
         }
 
     }

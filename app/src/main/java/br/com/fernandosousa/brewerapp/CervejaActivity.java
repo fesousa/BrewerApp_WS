@@ -94,14 +94,17 @@ public class CervejaActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_alterar) {
-            Toast.makeText(CervejaActivity.this, "Alterar",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(CervejaActivity.this, "Alterar",Toast.LENGTH_SHORT).show();
             Intent cadastroIt = new Intent(CervejaActivity.this, CadastroActivity.class);
             cadastroIt.putExtra("cerveja", cerveja);
             startActivityForResult(cadastroIt, RETORNO_ALTERA_ACTIVITY);
         } else if (id == R.id.action_remover) {
-            Toast.makeText(CervejaActivity.this, "Remover", Toast.LENGTH_SHORT).show();
-            CervejaDB cervejaDB = new CervejaDB(CervejaActivity.this);
-            cervejaDB.delete(cerveja);
+            //Toast.makeText(CervejaActivity.this, "Remover", Toast.LENGTH_SHORT).show();
+
+            //CervejaDB cervejaDB = new CervejaDB(CervejaActivity.this);
+            //cervejaDB.delete(cerveja);
+
+            new DeleteCervejasTask(CervejaActivity.this).execute((int)cerveja.id, 123456);
             Intent returnIntent = new Intent();
             returnIntent.putExtra("msg","Cerveja excluída com sucesso");
             setResult(Activity.RESULT_OK, returnIntent);
@@ -113,8 +116,10 @@ public class CervejaActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == RETORNO_ALTERA_ACTIVITY ) {
-            cerveja = (Cerveja)data.getSerializableExtra("cerveja");
-            setCerveja();
+            if (data != null) {
+                cerveja = (Cerveja) data.getSerializableExtra("cerveja");
+                setCerveja();
+            }
 
 
         }

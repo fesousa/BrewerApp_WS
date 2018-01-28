@@ -45,6 +45,7 @@ public class GetCervejasTask extends AsyncTask<Void, Void, List<Cerveja>> {
         List<Cerveja> cervejas = null;
         try {
             String json = http.doGet(url);
+            Log.d("Servico", json);
             cervejas = this.parseJSON(json);
         }
         catch(IOException ex) { }
@@ -53,7 +54,7 @@ public class GetCervejasTask extends AsyncTask<Void, Void, List<Cerveja>> {
     }
 
     protected  void onPostExecute(List<Cerveja> retorno) {
-        Toast.makeText(contexto, retorno.toString(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(contexto, "Retorno WS", Toast.LENGTH_LONG).show();
         ListView lista = (ListView) ((Activity)contexto).findViewById(R.id.listaElementos);
         lista.setAdapter(new CervejasAdapter(contexto,retorno ));
     }
@@ -69,7 +70,8 @@ public class GetCervejasTask extends AsyncTask<Void, Void, List<Cerveja>> {
                 JSONObject jsonCerveja = jsonCervejas.getJSONObject(i);
                 Cerveja c = new Cerveja();
 
-                c.id = jsonCerveja.optInt("ïd");
+                c.id = jsonCerveja.optLong("id");
+                Log.d("Servico",Long.toString(c.id));
                 c.nome = jsonCerveja.optString("nome");
                 c.imagem = jsonCerveja.optString("imagem");
                 c.tipo = jsonCerveja.optString("tipo");

@@ -75,8 +75,6 @@ public class MainActivity extends DebugActivity {
                 }
 
 
-                //Toast.makeText(MainActivity.this, "Usuário: " + txtUsuario + "; Senha: " + txtSenha, Toast.LENGTH_LONG).show();
-
                 Intent intent = new Intent(MainActivity.this, TelaInicialActivity.class);
 
                 Bundle params = new Bundle();
@@ -95,7 +93,7 @@ public class MainActivity extends DebugActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             String result = data.getStringExtra("result");
-            Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
         }
     }
 }

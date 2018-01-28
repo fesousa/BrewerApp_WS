@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,7 +32,7 @@ public class CadastroActivity extends AppCompatActivity {
         check.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(CadastroActivity.this, "Favorita: " + isChecked, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CadastroActivity.this, "Favorita: " + isChecked, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -39,7 +40,8 @@ public class CadastroActivity extends AppCompatActivity {
         grupo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Toast.makeText(CadastroActivity.this, "Marcado: " + checkedId, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CadastroActivity.this, "Marcado: " + checkedId, Toast.LENGTH_SHORT).show();
+                Log.d("MYTASK","Marcado: " + checkedId);
             }
         });
 
@@ -139,11 +141,15 @@ public class CadastroActivity extends AppCompatActivity {
                 cerveja.latitude = textoLatitudeCerveja;
                 cerveja.longitude = textoLongitudeCerveja;
 
-                CervejaDB cervejaDB = new CervejaDB(CadastroActivity.this);
+                // utilizar quando for dalvor no banco loval
+                //CervejaDB cervejaDB = new CervejaDB(CadastroActivity.this);
+                //cervejaDB.save(cerveja);
 
-                cervejaDB.save(cerveja);
+                cerveja.ra = 123456;
+                new PostCervejasTask(CadastroActivity.this).execute(cerveja);
 
                 Intent returnIntent = new Intent();
+
 
                 returnIntent.putExtra("cerveja",cerveja);
 
