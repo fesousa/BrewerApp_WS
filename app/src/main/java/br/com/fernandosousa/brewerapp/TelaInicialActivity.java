@@ -187,7 +187,9 @@ public class TelaInicialActivity extends DebugActivity {
 
     private void buscaCervejas(String query) {
 
-        //cervejas = ((CervejasAdapter) lista.getAdapter()).getList();
+        if (cervejas == null || cervejas.size() == 0) {
+            cervejas = ((CervejasAdapter) lista.getAdapter()).getList();
+        }
         query = query.toLowerCase();
         List<Cerveja> results = new ArrayList<Cerveja>();
         for (Cerveja cerveja: cervejas) {

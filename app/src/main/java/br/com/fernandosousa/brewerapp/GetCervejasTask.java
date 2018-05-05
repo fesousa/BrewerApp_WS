@@ -57,6 +57,7 @@ public class GetCervejasTask extends AsyncTask<Void, Void, List<Cerveja>> {
         //Toast.makeText(contexto, "Retorno WS", Toast.LENGTH_LONG).show();
         ListView lista = (ListView) ((Activity)contexto).findViewById(R.id.listaElementos);
         lista.setAdapter(new CervejasAdapter(contexto,retorno ));
+
     }
 
     // transformar json na lista de Cervejas
