@@ -62,7 +62,7 @@ public class TelaInicialActivity extends DebugActivity {
         //cervejas = cervejaDB.findAll();
 
         // chamar um WS com a lista de Cervejas - não funciona se estiver na Thread Principal
-//        String url = "http://fernandosousa.com.br/mobile/app/cerveja/listar";
+//        String url = "http://localhost/cerveja/listar";
 //        HttpHelper http = new HttpHelper();
 //        String json = "";
 //        try {

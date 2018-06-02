@@ -40,7 +40,7 @@ public class GetCervejasTask extends AsyncTask<Void, Void, List<Cerveja>> {
 
     @Override
     protected List<Cerveja> doInBackground(Void... voids) {
-        String url = "http://fernandosousa.com.br/mobile/app/cerveja/listar";
+        String url = "http://localhost/cerveja/listar";
         HttpHelper http = new HttpHelper();
         List<Cerveja> cervejas = null;
         try {

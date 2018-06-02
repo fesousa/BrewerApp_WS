@@ -28,7 +28,7 @@ public class DeleteCervejasTask extends AsyncTask<Integer, Void, ReturnSucesso> 
     protected ReturnSucesso doInBackground(Integer... params) {
         //android.os.Debug.waitForDebugger();
 
-        String url = "http://fernandosousa.com.br/mobile/app/cerveja/remover/"+params[0]+"/"+params[1];
+        String url = "http://localhost/cerveja/remover/"+params[0]+"/"+params[1];
         HttpHelper http = new HttpHelper();
         ReturnSucesso sucesso = null;
         try {

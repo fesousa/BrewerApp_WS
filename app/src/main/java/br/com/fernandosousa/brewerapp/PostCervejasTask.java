@@ -35,7 +35,7 @@ public class PostCervejasTask extends AsyncTask<Cerveja, Void, ReturnSucesso> {
     protected ReturnSucesso doInBackground(Cerveja... cerveja) {
         //android.os.Debug.waitForDebugger();
         Log.d("Servico", "Chamada ao servico" + cerveja[0].id);
-        String url = cerveja[0].id == 0? "http://fernandosousa.com.br/mobile/app/cerveja/adicionar":"http://fernandosousa.com.br/mobile/app/cerveja/alterar";
+        String url = cerveja[0].id == 0? "http://localhost/cerveja/adicionar":"http://localhost/cerveja/alterar";
         HttpHelper http = new HttpHelper();
         ReturnSucesso sucesso = null;
         try {
